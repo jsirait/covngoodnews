@@ -8,3 +8,5 @@ The motivation behind this project is to allow users stay informed about the cur
 ## Direction to run the application
 The web application is built using Flask. First install all the requirements in the `requirements.txt` file. Then run the `app.py` file.
 
+### Notes:
+`funcs.py` contains helper functions. `static` contains CSS files. `templates` contains HTML templates.

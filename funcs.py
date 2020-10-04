@@ -1,10 +1,9 @@
 import requests
-from bs4 import BeautifulSoup as bs
 import json
 
 # BASE_URL = "https://covid2019-api.herokuapp.com/"
 BASE_URL = "https://covid19.mathdro.id/api"
-SEARCH_URL = "https://www.google.com/search?q=good+news+on+covid+-justgivemepositivenews"
+SEARCH_URL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyBIW5uhggFIcZGBinkl8X2JUySI7S5HKjg&cx=2f08ca55844d8d1d8&q=good+news+on+covid+2020+happy&lr=lang_en&start=0&num=10&excludeTerms=Stephanapoulos"
 cases = ["confirmed","recovered", "deaths", "active"]
 countries = {"AF":"Afghanistan", "AX":"Aland Islands","AL":"Albania","DZ":"Algeria","AS":"American Samoa","AD":"Andorra",
 "AO":"Angola","AI":"Anguilla","AQ":"Antarctica","AG":"Antigua and Barbuda","AR":"Argentina","AM":"Armenia",
@@ -75,23 +74,26 @@ def getCaseCountry(country):
     return fin
 
 def getTenGoodNews():
-    res = requests.get(SEARCH_URL).text
-    soup = bs(res, 'html.parser')
-    results = soup.findAll("div", class_="ZINbbc")
-    # print("results:", results)
+    res = json.loads(requests.get(SEARCH_URL).text)["items"]
     finres = []
-    for r in results:
-        # print("finres this far:", len(finres))
+    for r in res:
+        print("finres this far:", len(finres))
         c = {}
-        # print("r:", type(r))
-        heading = r.find("h3", class_="zBAuLc")
-        if not heading:
+        try:
+            heading = r['title']
+            if "Google Alerts" in heading:
+                continue
+        except:
+            print("bummer")
             continue
-        heading = heading.get_text()
-        urlh = r.find('a')['href'][7:]
-        desc = r.find('div', class_='BNeawe s3v9rd AP7Wnd').get_text()
+        urlh = r['link']
+        desc = ""
+        try:
+            desc = r['snippet']
+        except:
+            pass
         c['heading'] = heading
-        c['url'] = urlh.split("&sa")[0]
+        c['url'] = urlh
         c['desc'] = desc
         finres.append(c)
     return finres

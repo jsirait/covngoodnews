@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <title>Motivation & About</title>
+</head>
+<body>
+    <div class="sections11">
+        <div class="section-about">
+            <h1>Credits</h1>
+            <p>This project uses the following:</p>
+            <ul>
+                <li>COVID-19 API: <a href="https://covid19.mathdro.id/">https://covid19.mathdro.id/</a></li>
+                <li>List of good news and links are query results using Google Search at the time user visits this page.</li>
+            </ul>
+        </div>
+        <div class="section-motivation">
+            <h1>Motivation</h1>
+            <p>The pandemic has wrecked havoc in so many parts of our lives, including
+                but not limited to our mental healths. As the pandemic becomes the hottest topic
+                in current news outlets, it becomes increasingly difficult to stay positive and
+                hold out hope. I personally have tried stirring away from news altogether, but I found
+                it difficult to do. I still wanted to know the COVID-19 status of Indonesia, India, Nepal, UK, where
+                my family and friends live. I also still wanted to know the situation in the US where I live,
+                as well as the world overall.
+            </p>
+            <p>I come up with this website, <em>Dev and Good News</em>, so people can keep informed
+                about the COVID-19 situation in the world overall and in each country individually, while also
+                stay positive and hold out hope by looking at good news on COVID-19.
+            </p>
+            <p>
+                <em>Cov n Good News</em>, keeps you updated and helps you hold out hope :)
+            </p>
+        </div>
+        <div>
+            <a href="{{url_for('index')}}"><p>Go back to home page</p></a>
+        </div>
+    </div>
+</body>
+</html>

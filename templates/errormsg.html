@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <title>Error Page</title>
+</head>
+<body>
+    <div class="sections11">
+        <div class="section-about">
+            <h1>Error</h1>
+            <p>We're so sorry that you got an error! :-(</p>
+            <p>We will get to this soon. Meanwhile, please feel free return to
+                home page and browse for other countries or other good news :-)</p>
+        </div>
+        <div>
+            <a href="{{url_for('index')}}"><p>Go back to home page</p></a>
+        </div>
+    </div>
+</body>
+</html>

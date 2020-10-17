@@ -77,7 +77,7 @@ def getTenGoodNews():
     res = json.loads(requests.get(SEARCH_URL).text)["items"]
     finres = []
     for r in res:
-        print("finres this far:", len(finres))
+        # print("finres this far:", len(finres))
         c = {}
         try:
             heading = r['title']

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import funcs
 import json
 
@@ -40,6 +40,27 @@ def index():
         activec = activec,
         last_updated = last_updated,
         goodNews = goodNews)
+
+@app.route("/chooseCountry/", methods=["POST"])
+def chooseCountry():
+    countryName = ""
+    if request.method=="POST":
+        countryName = request.form.get("countryName")
+        stats = funcs.getCaseCountry(countryName)
+        if "error" in stats:
+            return render_template("errormsg.html")
+        location = stats['location']
+        # print(stats)
+        confirmedc = funcs.addCommas(str(stats['confirmed']))
+        deathsc = funcs.addCommas(str(stats['deaths']))
+        # print("deathsc:", deathsc)
+        activec = funcs.addCommas(str(stats['active']))
+        recoveredc = funcs.addCommas(str(stats['recovered']))
+        last_updated = stats['lastUpdate']
+    return jsonify({"countryName": countryName, 
+        "location": location, "confirmedc":confirmedc,
+        "deathsc":deathsc, "activec":activec, 
+        "recoveredc": recoveredc, "last_updated": last_updated})
 
 @app.route('/motivationabout/')
 def motivationabout():

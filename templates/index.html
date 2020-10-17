@@ -12,9 +12,9 @@
 <body>
     <div class="main-row">
         <div class="column" id="data-column">
-            <h1>{{location}}</h1>
+            <h1 id="stat_location">{{location}}</h1>
 
-            <form method="GET" action="">
+            <form method="POST" action="{{url_for('chooseCountry')}}">
             <select name="country" class="form-control" id="country" required>
             <option value="" label="Select a country ... " disabled selected>Select a country ... </option>
             <option value="worldwide" label="World Wide">World Wide</option>
@@ -283,29 +283,29 @@
             </optgroup>
         </select>
         <br>
-        <input class="bbtn" type="submit" value="Check Stat">
+        <input class="bbtn" type="submit" value="Check Stat" hidden>
         </form>
 
         <div class= "statboxes">
         <div class=" statbox confirmedc">
-            <p><span class="numc">{{confirmedc}}</span>
+            <p><span class="numc" id="confirmedc">{{confirmedc}}</span>
             <br>confirmed</p>
         </div>
         <div class="statbox activec">
-            <p><span class="numc">{{activec}}</span>
+            <p><span class="numc" id="activec">{{activec}}</span>
                 <br>active</p>
         </div>
         <div class=" statbox recoveredc">
-            <p><span class="numc">{{recoveredc}}</span>
+            <p><span class="numc" id="recoveredc>{{recoveredc}}</span>
                 <br>recovered</p>
         </div>
         <div class="statbox deathsc">
-            <p><span class="numc">{{deathsc}}</span>
+            <p><span class="numc" id="deathsc">{{deathsc}}</span>
                 <br>deaths</p>
         </div>
         </div>
 
-        <p>Last updated: {{last_updated}}</p>
+        <p id="last_updated">Last updated: {{last_updated}}</p>
         </div>
 
         <div class="column" id="happy-column">
@@ -320,5 +320,32 @@
         <hr>
         <p>This page is created by Junita as an IvyHack project. <a href="{{url_for('motivationabout')}}"><span>Motivation & About this Project</span></a></p>
     </footer>
+
+    <script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    <script>
+        var choose_country = "{{url_for('chooseCountry')}}";
+
+        function change_stat(resp) {
+            global_response = resp;
+            console.log("location:"+ resp.location);
+            $("#stat_location").text(resp.location);
+            $("#confirmedc").text(resp.confirmedc);
+            $("#activec").text(resp.activec);
+            $("#deathsc").text(resp.deathsc);
+            $("#recoveredc").text(resp.recoveredc);
+            $("#last_updated").text(resp.last_updated);
+        }
+
+        $("select").change(
+            function(evt){
+                if( event.target != this) return;
+                // console.log("Really loud")
+                var countryName = $(this).find("option:selected").val();
+                // console.log("Country:"+countryName);
+                $.post(choose_country, {'countryName': countryName}, change_stat);
+            }
+        )
+    </script>
 </body>
 </html>

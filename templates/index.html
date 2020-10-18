@@ -328,13 +328,17 @@
 
         function change_stat(resp) {
             global_response = resp;
-            console.log("location:"+ resp.location);
-            $("#stat_location").text(resp.location);
-            $("#confirmedc").text(resp.confirmedc);
-            $("#activec").text(resp.activec);
-            $("#deathsc").text(resp.deathsc);
-            $("#recoveredc").text(resp.recoveredc);
-            $("#last_updated").text(resp.last_updated);
+            // console.log("location:"+ resp.location);
+            if (resp.error) {
+                alert(resp.error)
+            } else {
+                $("#stat_location").text(resp.location);
+                $("#confirmedc").text(resp.confirmedc);
+                $("#activec").text(resp.activec);
+                $("#deathsc").text(resp.deathsc);
+                $("#recoveredc").text(resp.recoveredc);
+                $("#last_updated").text(resp.last_updated);
+            }
         }
 
         $("select").change(

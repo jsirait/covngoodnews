@@ -48,7 +48,7 @@ def chooseCountry():
         countryName = request.form.get("countryName")
         stats = funcs.getCaseCountry(countryName)
         if "error" in stats:
-            return render_template("errormsg.html")
+            return jsonify({'error': "We don't have that country in our database :-("})
         location = stats['location']
         # print(stats)
         confirmedc = funcs.addCommas(str(stats['confirmed']))
